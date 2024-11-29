@@ -10,40 +10,46 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
+#include "ft_printf.h"
 
-int	ft_printf(const char *format, ...)
+static int	ft_format(const char format, va_list args, int	len)
 {
-	va_list	args;
-	va_start(args, format);
 	int	count;
-	int	i;
-	
 
 	count = 0;
-	i = 0;
+	if (format == 'c')
+		count += ft_putchar(va_arg(args, char), len);	
+	else if (format == 's')
+		count += ft_putstr(va_arg(args, char), len);
+	else if (format == 'd' || format == 'i')
+		count += ft_putnbr(va_arg(args, unsigned int), len);
+	else if (format == 'x')
+		count += ft_print_hex(va_arg(args, unsigned int), len);
+	else if (format == 'X')
+		count += ft_print_hex(va_arg(args, unsigned int), len);
+	else if (format == '%')
+		count += ft_putchar(va_arg(args, char), len);
+	else if (format == 'p')
+		count += ft_print_ptr(va_arg(args, unsigned int), len);
+	return (count);
+}
 
-	while (*format)
-	{ //mettre dans une fonction
-		if (format[i++] == "%c")
-			ft_putchar;
-			count++;
-		else if (format[i++] == "%d")
-			ft_putnbr;
-			count++;
-		else if (format[i++] == "%i")
-			ft_putnbr;
-			count++;
-		else if (format[i++] == "%%")
-			ft_putchar;
-			count++;
-		else if (format[i++] == "%x")
-			count++;
-		else if (format[i++] == "%X")
-			count++;	
-		else
+
+int	ft_printf(const char *str, ...)
+{
+	va_list	args;
+	int		count;
+	int		i;
+
+	va_start(args, str);
+	count = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '%')
 		{
-			count++;
+			i++;
+			ft_format(str, args, count)
 		}
 	}
 	va_end(args);
