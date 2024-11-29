@@ -2,7 +2,7 @@ NAME = ft_printf.a
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -I ./
 
-SRC = 
+SRC = ft_printf.c ft_num.c
 
 OBJ = $(SRC:.c=.o)
 
