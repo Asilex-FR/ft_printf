@@ -12,58 +12,100 @@
 
 #include "ft_printf.h"
 
-void	ft_print_hex(unsigned int nb, char c, int len)
+int	ft_strlen(char *str)
 {
-	char			*base;
+	int	i;
 
-	if (c == 'x')
-		base = "0123456789abcdef";
-	if (c == 'X')
-		base = "0123456789ABCDEF";
-	if (nb < 16)
-		ft_putchar(base[nb % 16], len);
-	else
-	{
-		ft_print_hex(nb / 16, c , len);
-		ft_print_hex(nb % 16, c , len);
-	}
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
-void	ft_putchar(char c, int len)
+int	ft_putchar(char c)
 {
 	write(1, &c, 1);
-	len++;
+	return (1);
 }
 
-void	ft_putstr(char *str, int len)
+int	ft_putstr(const char *str)
 {
 	int	i;
 
 	i = 0;
 	while (str && str[i])
-		ft_putchar(str[i++], len);
+		ft_putchar(str[i++]);
+	if (!str)
+	{
+		ft_putstr("(null)");
+		return (6);
+	}
+	return (i);
 }
 
-void	ft_putnbr(int n, int len)
+int	ft_putstr_free(const char *str, char format)
 {
-	unsigned int	nb;
+	int		i;
+	char	*s;
 
-	nb = n;
+	i = 0;
+	if (format == 'p' && str[i++] == "0x0")
+	{
+		ft_putstr("(nill)");
+		free(str);
+		return (6);
+	}
+	s = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	s = str;
+	while (s && s[i])
+		ft_putchar(s[i++]);
+	s[i] = '\0';
+	free(s);
+	return (i);
+}
+
+size_t	ft_count_base(long long n, char	*base)
+{
+	size_t		i;
+	long long	len_base;
+
+	i = 1;
+	len_base = ft_strlen(base);
 	if (n < 0)
 	{
-		ft_putchar('-', len);
-		nb *= -1;
+		n = -n;
+		i++;
 	}
-	if (n > 9)
-		ft_putnbr_fd(n / 10, fd);
-	ft_putchar_fd((n % 10) + '0', fd);
+	while (n > len_base - 1)
+	{
+		n = n / len_base;
+		i++;
+	}
+	return (i);
 }
 
-void ft_print_ptr(unsigned int ptr, int len)
+char	*ft_itoa_base(long long n, char *base)
 {
-	unsigned int	p;
+	char	*str;
+	size_t	i;
 
-	p = ptr;
-	ft_putstr("0x", len);
-	ft_print_hex(p, 'x', len);	
+	i = ft_count_base(n, base);
+	str = malloc(sizeof(char) * (i + 1));
+	if (!str)
+		return (NULL);
+	str[i] = '\0';
+	i--;
+	if (n < 0)
+	{
+		n = -n;
+		str[0] = '-';
+	}
+	while (n > ft_strlen(base) - 1)
+	{
+		str[i] = base[n % ft_strlen(base)];
+		n = n / ft_strlen(base);
+		i--;
+	}
+	str[i] = base[n % ft_strlen(base)];
+	return (str);
 }

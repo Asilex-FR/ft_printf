@@ -12,28 +12,26 @@
 
 #include "ft_printf.h"
 
-static int	ft_format(const char format, va_list args, int	len)
+static int	ft_format(const char format, va_list args)
 {
-	int	count;
-
-	count = 0;
 	if (format == 'c')
-		count += ft_putchar(va_arg(args, char), len);	
+		return (ft_putchar(va_arg(args, int)));	
 	else if (format == 's')
-		count += ft_putstr(va_arg(args, char), len);
-	else if (format == 'd' || format == 'i')
-		count += ft_putnbr(va_arg(args, unsigned int), len);
-	else if (format == 'x')
-		count += ft_print_hex(va_arg(args, unsigned int), len);
-	else if (format == 'X')
-		count += ft_print_hex(va_arg(args, unsigned int), len);
+		return (ft_putstr(va_arg(args, char *)));
 	else if (format == '%')
-		count += ft_putchar(va_arg(args, char), len);
-	else if (format == 'p')
-		count += ft_print_ptr(va_arg(args, unsigned int), len);
-	return (count);
+	 	return (ft_putchar(va_arg(args, int)));
+	else if (format == 'd' || format == 'i')
+	 	return (ft_putstr(ft_itoa_base(va_arg(args, long long), "0123456789")));
+	else if (format == 'x')
+	 	return (ft_putstr(ft_itoa_base(va_arg(args, long long), "0123456789abcdef")));
+	else if (format == 'X')
+	 	return (ft_putstr(ft_itoa_base(va_arg(args, long long), "0123456789ABCDEF")));
+	else if (format == 'u')
+		return (ft_putstr(ft_itoa_base(va_arg(args, int), "0123456789")));
+	// else if (format == 'p')
+	//  	ft_print_ptr(va_arg(args, unsigned int));
+	return (0);
 }
-
 
 int	ft_printf(const char *str, ...)
 {
@@ -49,9 +47,15 @@ int	ft_printf(const char *str, ...)
 		if (str[i] == '%')
 		{
 			i++;
-			ft_format(str, args, count)
+			count += ft_format(str[i], args);
 		}
+		else
+		{
+			count += ft_putchar(str[i]);
+		}
+		i++;
 	}
 	va_end(args);
 	return (count);
 }
+

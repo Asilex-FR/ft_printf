@@ -17,12 +17,11 @@
 # include <stdarg.h>
 # include <stdlib.h>
 
-int	ft_printf(const char *str, ...);
-
-void	ft_print_hex(unsigned int nb, char c, int len);
-void	ft_putchar(char c, int len);
-void	ft_putstr(char *str, int len);
-void	ft_putnbr(int n, int len);
-void ft_print_ptr(unsigned int ptr, int len);
+int		ft_printf(const char *str, ...);
+int		ft_putchar(char c);
+int		ft_putstr(const char *str);
+int		ft_putstr_free(const char *str);
+char	*ft_itoa_base(long long n, char *base);
+int		ft_strlen(char *str);
 
 #endif
