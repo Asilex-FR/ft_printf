@@ -43,26 +43,26 @@ int	ft_putstr(const char *str)
 	return (i);
 }
 
-int	ft_putstr_free(const char *str, char format)
-{
-	int		i;
-	char	*s;
+// int	ft_putstr_free(const char *str, char format)
+// {
+// 	int		i;
+// 	char	*s;
 
-	i = 0;
-	if (format == 'p' && str[i++] == "0x0")
-	{
-		ft_putstr("(nill)");
-		free(str);
-		return (6);
-	}
-	s = malloc(sizeof(char) * (ft_strlen(str) + 1));
-	s = str;
-	while (s && s[i])
-		ft_putchar(s[i++]);
-	s[i] = '\0';
-	free(s);
-	return (i);
-}
+// 	i = 0;
+// 	if (format == 'p' && str[i++] == "0x0")
+// 	{
+// 		ft_putstr("(nill)");
+// 		free(str);
+// 		return (6);
+// 	}
+// 	s = malloc(sizeof(char) * (ft_strlen(str) + 1));
+// 	s = str;
+// 	while (s && s[i])
+// 		ft_putchar(s[i++]);
+// 	s[i] = '\0';
+// 	free(s);
+// 	return (i);
+// }
 
 size_t	ft_count_base(long long n, char	*base)
 {

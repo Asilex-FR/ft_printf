@@ -15,21 +15,23 @@
 static int	ft_format(const char format, va_list args)
 {
 	if (format == 'c')
-		return (ft_putchar(va_arg(args, int)));	
+		return (ft_putchar(va_arg(args, int)));
 	else if (format == 's')
 		return (ft_putstr(va_arg(args, char *)));
 	else if (format == '%')
-	 	return (ft_putchar(va_arg(args, int)));
+		return (ft_putchar(va_arg(args, int)));
 	else if (format == 'd' || format == 'i')
-	 	return (ft_putstr(ft_itoa_base(va_arg(args, long long), "0123456789")));
+		return (ft_putstr(ft_itoa_base(va_arg(args, long long), "0123456789")));
 	else if (format == 'x')
-	 	return (ft_putstr(ft_itoa_base(va_arg(args, long long), "0123456789abcdef")));
+		return (ft_putstr(ft_itoa_base(va_arg(args, long long),
+					"0123456789abcdef")));
 	else if (format == 'X')
-	 	return (ft_putstr(ft_itoa_base(va_arg(args, long long), "0123456789ABCDEF")));
+		return (ft_putstr(ft_itoa_base(va_arg(args, long long),
+					"0123456789ABCDEF")));
 	else if (format == 'u')
 		return (ft_putstr(ft_itoa_base(va_arg(args, int), "0123456789")));
 	// else if (format == 'p')
-	//  	ft_print_ptr(va_arg(args, unsigned int));
+	// 	ft_print_ptr(va_arg(args, unsigned int));
 	return (0);
 }
 
@@ -58,4 +60,3 @@ int	ft_printf(const char *str, ...)
 	va_end(args);
 	return (count);
 }
-
