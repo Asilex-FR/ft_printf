@@ -20,7 +20,6 @@
 int		ft_printf(const char *str, ...);
 int		ft_putchar(char c);
 int		ft_putstr(const char *str);
-int		ft_putstr_free(const char *str);
 char	*ft_itoa_base(long long n, char *base);
 int		ft_strlen(char *str);
 
