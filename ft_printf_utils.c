@@ -43,7 +43,7 @@ int	ft_putstr(const char *str)
 	return (i);
 }
 
-size_t	ft_count_base(long long n, char	*base)
+static size_t	ft_count_base(long long n, char	*base)
 {
 	size_t		i;
 	long long	len_base;

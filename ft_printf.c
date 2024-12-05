@@ -19,19 +19,13 @@ static int	ft_format(const char format, va_list args)
 	else if (format == 's')
 		return (ft_putstr(va_arg(args, char *)));
 	else if (format == '%')
-		return (ft_putchar(va_arg(args, int)));
-	else if (format == 'd' || format == 'i')
-		return (ft_putstr(ft_itoa_base(va_arg(args, long long), "0123456789")));
-	else if (format == 'x')
-		return (ft_putstr(ft_itoa_base(va_arg(args, long long),
-					"0123456789abcdef")));
-	else if (format == 'X')
-		return (ft_putstr(ft_itoa_base(va_arg(args, long long),
-					"0123456789ABCDEF")));
-	else if (format == 'u')
-		return (ft_putstr(ft_itoa_base(va_arg(args, int), "0123456789")));
-	// else if (format == 'p')
-	// 	ft_print_ptr(va_arg(args, unsigned int));
+		return (ft_putchar('%'));
+	else if (format == 'd' || format == 'i' || format == 'u')
+		return (ft_print_base10(va_arg(args, long), format));
+	else if (format == 'x' || format == 'X')
+		return (ft_print_base16(va_arg(args, unsigned int), format));
+	else if (format == 'p')
+		return (ft_print_ptr(va_arg(args, unsigned long long)));
 	return (0);
 }
 
